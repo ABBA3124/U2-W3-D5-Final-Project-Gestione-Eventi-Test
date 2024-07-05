@@ -21,6 +21,7 @@ import java.util.UUID;
 
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
+    
     @Autowired
     private JWTTools jwtTools;
 
@@ -30,8 +31,9 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer "))
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             throw new UnauthorizedException("Per favore inserisci correttamente il token nell'header");
+        }
 
         String accessToken = authHeader.substring(7);
         jwtTools.verifyToken(accessToken);
@@ -42,7 +44,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
-
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {

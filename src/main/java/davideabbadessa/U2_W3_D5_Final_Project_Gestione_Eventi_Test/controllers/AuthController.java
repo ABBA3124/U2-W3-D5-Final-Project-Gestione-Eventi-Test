@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-
     @Autowired
     private UserService userService;
 
@@ -30,12 +29,10 @@ public class AuthController {
         return new UserLoginResponseDTO(authService.authUserAndGenerateToken(payload));
     }
 
-
     @PostMapping("/registrati")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponseDTO createUser(@Validated @RequestBody UserDTO body, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
-            System.out.println(validationResult.getAllErrors());
             throw new BadRequestException(validationResult.getAllErrors());
         }
         return new UserResponseDTO(this.userService.saveUser(body).getId());

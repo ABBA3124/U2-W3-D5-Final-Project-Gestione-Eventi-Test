@@ -14,12 +14,12 @@ import java.util.UUID;
 
 @Service
 public class UserService {
+    
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     public User saveUser(UserDTO userDTO) {
         if (userRepository.findByUsername(userDTO.username()).isEmpty()) {

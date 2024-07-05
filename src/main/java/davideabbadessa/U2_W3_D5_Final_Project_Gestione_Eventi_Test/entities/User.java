@@ -32,7 +32,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", fetch = FetchType.EAGER)
     private Set<Event> createdEvents;
 
     @ManyToMany
@@ -41,7 +41,6 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> bookedEvents;
-
 
     public User(String username, String password) {
         this.username = username;
@@ -56,21 +55,21 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
     }
 }
