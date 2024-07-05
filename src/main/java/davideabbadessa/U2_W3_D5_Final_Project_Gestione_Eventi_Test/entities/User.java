@@ -35,7 +35,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "creator", fetch = FetchType.EAGER)
     private Set<Event> createdEvents;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_event",
             joinColumns = @JoinColumn(name = "user_id"),

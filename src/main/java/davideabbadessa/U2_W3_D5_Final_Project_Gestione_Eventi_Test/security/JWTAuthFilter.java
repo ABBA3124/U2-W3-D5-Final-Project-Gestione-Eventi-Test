@@ -2,7 +2,6 @@ package davideabbadessa.U2_W3_D5_Final_Project_Gestione_Eventi_Test.security;
 
 
 import davideabbadessa.U2_W3_D5_Final_Project_Gestione_Eventi_Test.entities.User;
-import davideabbadessa.U2_W3_D5_Final_Project_Gestione_Eventi_Test.exceptions.UnauthorizedException;
 import davideabbadessa.U2_W3_D5_Final_Project_Gestione_Eventi_Test.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +20,7 @@ import java.util.UUID;
 
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
-    
+
     @Autowired
     private JWTTools jwtTools;
 
@@ -32,7 +31,8 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new UnauthorizedException("Per favore inserisci correttamente il token nell'header");
+            filterChain.doFilter(request, response);
+            return;
         }
 
         String accessToken = authHeader.substring(7);
