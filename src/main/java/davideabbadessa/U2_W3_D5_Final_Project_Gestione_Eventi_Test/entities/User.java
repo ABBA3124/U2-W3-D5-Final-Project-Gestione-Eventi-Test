@@ -3,7 +3,6 @@ package davideabbadessa.U2_W3_D5_Final_Project_Gestione_Eventi_Test.entities;
 
 import davideabbadessa.U2_W3_D5_Final_Project_Gestione_Eventi_Test.enums.Role;
 import jakarta.persistence.*;
-import jdk.jfr.Event;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
